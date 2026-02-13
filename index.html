@@ -99,8 +99,7 @@ button:hover {
 
 .lily {
     position: absolute;
-    width: 60px;
-    opacity: 0.8;
+    opacity: 0.9;
     animation: floatLily 12s linear infinite;
 }
 
@@ -234,13 +233,13 @@ function createHeart(){
     heart.innerHTML="❤";
     document.getElementById("hearts").appendChild(heart);
     setTimeout(()=>heart.remove(),5000);
-}
-setInterval(createHeart,400);
-    function createLily(){
-    const lily = document.createElement("img");
-    lily.src = "https://pngimg.com/uploads/lily/lily_PNG36.png";
+    
+function createLily(){
+    const lily = document.createElement("div");
     lily.classList.add("lily");
+    lily.innerHTML = "🌸";
     lily.style.left = Math.random() * 100 + "vw";
+    lily.style.fontSize = (30 + Math.random() * 30) + "px";
     lily.style.animationDuration = (8 + Math.random() * 6) + "s";
     document.getElementById("lilies").appendChild(lily);
     setTimeout(() => lily.remove(), 12000);
