@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>For Hooria ❤️</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Poppins:wght@300;500&display=swap" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+
+<style>
+body {
+    margin:0;
+    font-family:'Poppins',sans-serif;
+    background:linear-gradient(135deg,#0f0c29,#302b63,#24243e);
+    color:white;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    height:100vh;
+    overflow:hidden;
+}
+
+.page {
+    text-align:center;
+    max-width:700px;
+    padding:40px;
+    display:none;
+    animation:fade 1s ease forwards;
+}
+
+.active { display:block; }
+
+h1 {
+    font-family:'Playfair Display',serif;
+    font-size:2.5rem;
+    margin-bottom:20px;
+}
+
+button {
+    padding:15px 30px;
+    margin:10px;
+    font-size:18px;
+    border-radius:40px;
+    border:none;
+    cursor:pointer;
+    transition:0.3s ease;
+}
+
+.primary {
+    background:#ff4d6d;
+    color:white;
+}
+
+.secondary {
+    background:white;
+    color:#ff4d6d;
+}
+
+button:hover {
+    transform:scale(1.1);
+}
+
+@keyframes fade {
+    from {opacity:0; transform:translateY(20px);}
+    to {opacity:1; transform:translateY(0);}
+}
+
+.hearts {
+    position:fixed;
+    top:0;
+    left:0;
+    width:100%;
+    height:100%;
+    pointer-events:none;
+    overflow:hidden;
+}
+
+.heart {
+    position:absolute;
+    color:#ff4d6d;
+    font-size:20px;
+    animation:float 5s linear infinite;
+}
+
+@keyframes float {
+    0% {transform:translateY(100vh);}
+    100% {transform:translateY(-10vh);}
+}
+</style>
+</head>
+<body>
+
+<div class="hearts" id="hearts"></div>
+
+<!-- PAGE 1 -->
+<div class="page active" id="page1">
+    <h1>Hooria ❤️</h1>
+    <p>I made something special for you...</p>
+    <button class="primary" onclick="nextPage(2)">Click here for a question ✨</button>
+</div>
+
+<!-- PAGE 2 -->
+<div class="page" id="page2">
+    <h1>Do you love me? 🥺</h1>
+    <button class="primary" onclick="nextPage(3)">Yes, always 💕</button>
+    <button class="secondary" onclick="alert('Think again 😌')">Maybe 🤭</button>
+</div>
+
+<!-- PAGE 3 -->
+<div class="page" id="page3">
+    <h1>Will you be my Valentine? 💖</h1>
+    <button id="yesBtn" class="primary">Yes 💘</button>
+    <button id="noBtn" class="secondary">No 💔</button>
+    <p id="message"></p>
+</div>
+
+<!-- PAGE 4 STORY -->
+<div class="page" id="page4">
+    <h1>Our Story 💍</h1>
+    <p>
+        Hooria… our mothers knew each other long before we ever understood what love was.
+        They chose us for each other when we were just kids.
+        We used to play together without even realizing
+        that one day we would be preparing to build a life together.
+        <br><br>
+        I never imagined that the girl I played with as a child
+        would become the woman I cannot imagine my future without.
+        <br><br>
+        I can't wait to start my life with you.
+        To grow with you.
+        To pray with you.
+        To build dreams together.
+        <br><br>
+        What started as something arranged by our mothers
+        has become something written in my heart.
+    </p>
+    <button class="primary" onclick="nextPage(5)">There's one more surprise 🎁</button>
+</div>
+
+<!-- PAGE 5 SURPRISE -->
+<div class="page" id="page5">
+    <h1>Our Ramadan Dates 🌙✨</h1>
+    <p>
+        Even though we are long distance right now,
+        Ramzan is coming and that just means
+        we get to make beautiful memories in different ways.
+        <br><br>
+        🌙 Break our fast together on video call  
+        🎬 Watch a movie at the same time while texting  
+        📖 Read Qur’an together and make duaa for our future  
+        🍰 Order each other surprise desserts  
+        📝 Write letters to open next Ramadan as husband & wife  
+        <br><br>
+        Distance is temporary.
+        Our forever is not.
+        <br><br>
+        I love you, Hooria ❤️
+    </p>
+</div>
+
+<audio id="bgMusic" loop>
+<source src="https://www.bensound.com/bensound-music/bensound-romantic.mp3">
+</audio>
+
+<script>
+function nextPage(num){
+    document.querySelectorAll(".page").forEach(p=>p.classList.remove("active"));
+    document.getElementById("page"+num).classList.add("active");
+}
+
+const yesBtn = document.getElementById("yesBtn");
+const noBtn = document.getElementById("noBtn");
+const message = document.getElementById("message");
+const bgMusic = document.getElementById("bgMusic");
+
+let noClicks=0;
+const texts=[
+"Are you sure? 🥺",
+"Think again 😭",
+"Don't break my heart 💔",
+"I’ll love you forever 😢"
+];
+
+noBtn?.addEventListener("click",()=>{
+    noClicks++;
+    message.textContent=texts[noClicks-1]||"Last chance 😭";
+
+    yesBtn.style.transform=`scale(${1+noClicks*0.3})`;
+    noBtn.style.transform=`scale(${1-noClicks*0.2})`;
+
+    if(noClicks>4){ noBtn.style.display="none"; }
+});
+
+yesBtn?.addEventListener("click",()=>{
+    bgMusic.play();
+    confetti({particleCount:200,spread:120});
+    nextPage(4);
+});
+
+function createHeart(){
+    const heart=document.createElement("div");
+    heart.classList.add("heart");
+    heart.style.left=Math.random()*100+"vw";
+    heart.innerHTML="❤";
+    document.getElementById("hearts").appendChild(heart);
+    setTimeout(()=>heart.remove(),5000);
+}
+setInterval(createHeart,400);
+</script>
+
+</body>
+</html>
