@@ -87,12 +87,41 @@ button:hover {
     0% {transform:translateY(100vh);}
     100% {transform:translateY(-10vh);}
 }
+    .lilies {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    overflow: hidden;
+}
+
+.lily {
+    position: absolute;
+    width: 60px;
+    opacity: 0.8;
+    animation: floatLily 12s linear infinite;
+}
+
+@keyframes floatLily {
+    0% {
+        transform: translateY(100vh) rotate(0deg);
+        opacity: 0;
+    }
+    20% { opacity: 0.8; }
+    100% {
+        transform: translateY(-10vh) rotate(360deg);
+        opacity: 0;
+    }
+}
 </style>
 </head>
 <body>
 
 <div class="hearts" id="hearts"></div>
-
+<div class="lilies" id="lilies"></div>
+    
 <!-- PAGE 1 -->
 <div class="page active" id="page1">
     <h1>Hooria ❤️</h1>
@@ -207,6 +236,17 @@ function createHeart(){
     setTimeout(()=>heart.remove(),5000);
 }
 setInterval(createHeart,400);
+    function createLily(){
+    const lily = document.createElement("img");
+    lily.src = "https://pngimg.com/uploads/lily/lily_PNG36.png";
+    lily.classList.add("lily");
+    lily.style.left = Math.random() * 100 + "vw";
+    lily.style.animationDuration = (8 + Math.random() * 6) + "s";
+    document.getElementById("lilies").appendChild(lily);
+    setTimeout(() => lily.remove(), 12000);
+}
+
+setInterval(createLily, 2500);
 </script>
 
 </body>
